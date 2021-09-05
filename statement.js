@@ -11,10 +11,10 @@ const statement = (invoice, plays) => {
     minimumFractionDigits: 2
   }).format;
 
-  function amountFor(play, perf) {
+  function amountFor(perf) {
     let result = 0;
 
-    switch (play.type) {
+    switch (playFor(perf).type) {
       case "tragedy":
         result = 40000;
         if (perf.audience > 30) {
@@ -29,7 +29,7 @@ const statement = (invoice, plays) => {
         result += 300 * perf.audience;
         break;
       default:
-        throw new Error(`알 수 없는 장르: ${play.type}`);
+        throw new Error(`알 수 없는 장르: ${playFor(perf).type}`);
     }
     return result;
   }
@@ -39,7 +39,7 @@ const statement = (invoice, plays) => {
   }
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(playFor(perf), perf);
+    let thisAmount = amountFor(perf);
 
     volumeCredits += Math.max(perf.audience - 30, 0);
 
