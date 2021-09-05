@@ -1,5 +1,5 @@
-import { invoices } from "./invoices.js";
-import { plays } from './plays.js';
+import {invoices} from "./invoices.js";
+import {plays} from './plays.js';
 
 const statement = (invoice, plays) => {
   let totalAmount = 0;
@@ -34,8 +34,12 @@ const statement = (invoice, plays) => {
     return result;
   }
 
+  function playFor(perf) {
+    return plays[perf.playID];
+  }
+
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
+    const play = playFor(perf);
     let thisAmount = amountFor(play, perf);
 
     volumeCredits += Math.max(perf.audience - 30, 0);
