@@ -49,10 +49,12 @@ const statement = (invoice, plays) => {
   }
 
   for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditsFor(perf);
-
     result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience}석)\n`;
     totalAmount += amountFor(perf);
+  }
+
+  for (let perf of invoice.performances) {
+    volumeCredits += volumeCreditsFor(perf);
   }
 
   result += `총액: ${usd(totalAmount)}\n`;
